@@ -149,6 +149,16 @@ test('synthetic XLSX imports 302 indicators, preserves zero, and rejects nonnume
   await expect(page.locator('#rowCount')).toContainText('302');
   await expect(page.locator('#allRows tr')).toHaveCount(TOTAL_COUNT);
   await expect(page.locator('#trend svg')).toBeVisible();
+  // The synthetic daily differences are constant. Floating point noise must
+  // not expand the scatter axes into visually large spurious dispersion.
+  const constantCloud = await page.locator('#quantScatter circle').evaluateAll(points => {
+    const x = points.map(point => Number(point.getAttribute('cx')));
+    const y = points.map(point => Number(point.getAttribute('cy')));
+    return {n: points.length, dx: Math.max(...x) - Math.min(...x), dy: Math.max(...y) - Math.min(...y)};
+  });
+  expect(constantCloud.n).toBeGreaterThan(0);
+  expect(constantCloud.dx).toBeLessThan(0.001);
+  expect(constantCloud.dy).toBeLessThan(0.001);
   await expect(page.locator('#series option')).toHaveCount(TOTAL_COUNT);
   await expect(page.locator('#quantX option')).toHaveCount(TOTAL_COUNT + 2);
   await expect(page.locator('#series optgroup[label="EQUITY"] option')).toHaveCount(4);

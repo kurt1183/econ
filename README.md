@@ -6,6 +6,8 @@ Google Drive `AI_Credit`의 `FICC_Monitor.html` 기능을 보존·개선한 한�
 
 - 저장소: https://github.com/kurt1183/econ
 - 작업 브랜치: `feat/ficc-monitor-20261015`
+- Pull Request: https://github.com/kurt1183/econ/pull/1
+- 검증: 실제 Excel 전수 대조, 단위 테스트 25개, Chromium 통합 테스트 9개 통과
 - 예정 GitHub Pages 주소: https://kurt1183.github.io/econ/
 - 현재 기본 브랜치 병합·Pages 활성화·외부 접속 검증은 대기 중입니다. 위 주소는 배포 완료로 확인된 주소가 아닙니다.
 
